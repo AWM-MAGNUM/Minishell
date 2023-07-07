@@ -19,7 +19,7 @@ t_type *create_data_pipe(t_type *right_cmd,t_type *left_cmd)
     return ((t_type*)pipe);
 }
 
-t_redir *create_data_redir(char *filename,int flags,int fd,t_copy *env)
+t_redir *create_data_redir(char *filename,int fd,int flags,t_copy *env)
 {
     t_redir *redir;
 
@@ -28,6 +28,7 @@ t_redir *create_data_redir(char *filename,int flags,int fd,t_copy *env)
     redir->flags = flags;
     redir->filename = check_special(filename,env);
     redir->fd = fd;
+    return(redir);
 }
 
 void    add_arg_to_list(char *str,char **args,int *argc)

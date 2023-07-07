@@ -53,3 +53,16 @@ int ft_spaces(char *str,char *str_end,char *symbol)
         return(1); // Vérifier le premier caractère non-espace
     return(0);   
 }
+
+int check_for_symbol(char *str, char *end, char *symbols)
+{
+    char *spaces = " \t\r\n\f\v";
+
+    while (str < end)
+    {
+        if (!strchr(spaces, *str))
+            break;
+        str++;
+    }
+    return (*str && strchr(symbols, *str));
+}

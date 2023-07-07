@@ -48,7 +48,7 @@ typedef struct v_redir
 typedef struct v_copy
 {
     char *content;
-    struct v_list *next;
+    struct v_copy *next;
 }   t_copy;
 
 /*lexer*/
@@ -56,7 +56,6 @@ int	get_token(char **str, char *str_end, char **previous, char **ep);
 int	token(char **ptr, char *str_end, int tok);
 /*lexer_func*/
 char	*substring_copy(char *str, char *after_str);
-
 
 
 /* parser_ */
@@ -70,9 +69,34 @@ void    add_arg_to_list(char *str,char **args,int *argc);
 /*allocation*/
 t_type *create_data_exec(void);
 t_type *create_data_pipe(t_type *right_cmd,t_type *left_cmd);
+t_redir *create_data_redir(char *filename,int flags,int fd,t_copy *env);
 
 /*cheaker*/
 int ft_check_chock(char *str,char *str_end,char *symbol);
 int ft_spaces(char *str,char *str_end,char *symbol);
+int check_for_symbol(char *str, char *end, char *symbols);
+int	check_append(char **ptr);
+int	check_herdoc(char **ptr);
+
+
+/*handle $ "" */
+char    *check_special(char *str,t_copy *env);
+char    *handle_quotes_and_dollar(char *str,t_copy *env);
+char    find_sym(char *str,char *stre);
+char    *substr_ing(char **str, char sym);
+char *extract_substring(char **str,char symbol,t_copy *env);
+char	*ft_strjoin_allfree(char *s1, char *s2);
+char	*ft_strjoin__just1_free(char *s1, char *s2);
+void	free_s1_s2(char *str);
+char	*ft_strdup(const char *s1);
+void	concatenate_remaining_strings(char *str, char *stre, char **new, char *join);
+void    skip_character(char **ptr,char *end,char targer);
+char *h_quotes(char **str,char symbol,t_copy *env);
+char *h_dollar(char **str, t_copy *env);
+
+
+/*env*/
+void print_env(t_copy *env);
+t_copy	*env(t_copy *list, char **envt);
 
 #endif

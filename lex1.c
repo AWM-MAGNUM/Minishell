@@ -17,7 +17,7 @@ int	token(char **ptr, char *str_end, int tok)
 			&& !strchr("|<>", **ptr))
 		{
 			if (strchr("'\"", **ptr))
-				skip_quotes(ptr, str_end);
+				skip_character(ptr, str_end,**ptr);
 			else
 				(*ptr)++;
 		}
