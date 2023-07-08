@@ -61,9 +61,11 @@ t_type *redirection_commands(t_type *cmd,char **str,char *str_end,t_copy *env)
     int token;
     t_redir *redir_cmd;
 
-    while (ft_spaces(*str,str_end,"<>"))
+    while (ft_spaces(*str,str_end,"<>+"))
     {
-        token = get_token(str,str_end,&ptr,&ptr_end);
+        // token = get_token(str,str_end,&ptr,&ptr_end);
+        token = get_token(str,str_end,0,0);
+        // printf("%s\n", *str);
         if(redir_error(get_token(str,str_end,&ptr,&ptr_end)))
             return(NULL);
         if(token == '>')

@@ -30,17 +30,16 @@ int	check_herdoc(char **ptr)
 
 int ft_check_chock(char *str,char *str_end,char *symbol)
 {
-    if(!str)
-        return(0);
-    char *ptr = str;
-    while(ptr < str_end)
-    {
-            if(strchr(symbol,*ptr))
-                return (1);
-            ptr++;
-    }
-        return(0);
+	char	*spaces;
+
+	spaces = " \t\r\n\f\v";
+	while (str < str_end && strchr(spaces, *str))
+		str++;
+	return (*str && strchr(symbol, *str));
 }
+
+
+
 int ft_spaces(char *str,char *str_end,char *symbol)
 {
     char *whitespaces;
