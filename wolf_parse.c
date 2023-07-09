@@ -38,8 +38,6 @@ int ft_check_chock(char *str,char *str_end,char *symbol)
 	return (*str && strchr(symbol, *str));
 }
 
-
-
 int ft_spaces(char *str,char *str_end,char *symbol)
 {
     char *whitespaces;

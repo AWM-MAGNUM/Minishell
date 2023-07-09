@@ -93,10 +93,13 @@ void	concatenate_remaining_strings(char *str, char *stre, char **new, char *join
 void    skip_character(char **ptr,char *end,char targer);
 char *h_quotes(char **str,char symbol,t_copy *env);
 char *h_dollar(char **str, t_copy *env);
-
+ 
 
 /*env*/
 void print_env(t_copy *env);
 t_copy	*env(t_copy *list, char **envt);
 
+
+/*expand*/
+char* func_expand(char *str);
 #endif

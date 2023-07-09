@@ -5,7 +5,6 @@ int main(int argc, char **argv, char **envp)
     (void)envp;
     t_copy *envt = env(NULL,envp);
     (void)envt;
-    // print_env(envt);
     (void)argc,(void)argv;
     t_exec *exec_command = NULL;
     t_pipe *pipe_command = NULL;
@@ -17,6 +16,8 @@ int main(int argc, char **argv, char **envp)
         if (!str)
             exit(1);
         add_history(str);
+        if(strcmp(str,"env") == 0)
+            print_env(envt);
         int end = strlen(str);
         t_type *cmd = pipe_commands(&str , str + end, NULL);
         if (cmd == NULL)
@@ -26,8 +27,12 @@ int main(int argc, char **argv, char **envp)
             if(cmd->type == 1)
             {
                 exec_command = (t_exec *)cmd;
+                char *expandedValue = func_expand(str);
+                if (expandedValue != NULL)
+                    printf("Valeur étendue: %s\n", expandedValue);
+
                 printf("type de la commande execution : %d\n",exec_command->type);
-                // printf("%s\n",exec_command->args[0]);
+                printf("%s\n",exec_command->args[0]);
                 cmd = exec_command->cmd;
             }
             else if(cmd->type == 2)
@@ -35,6 +40,7 @@ int main(int argc, char **argv, char **envp)
                 pipe_command = (t_pipe*)cmd;
                 printf("type de la commande pipe : %d\n",pipe_command->type);
                 cmd = pipe_command->leftcmd;
+                // cmd = pipe_command->rightcmd;
             }
             else if(cmd->type == 3)
             {
