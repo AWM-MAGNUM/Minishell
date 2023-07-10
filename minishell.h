@@ -89,6 +89,7 @@ char	*ft_strjoin_allfree(char *s1, char *s2);
 char	*ft_strjoin__just1_free(char *s1, char *s2);
 void	free_s1_s2(char *str);
 char	*ft_strdup(const char *s1);
+void    skip_character(char **ptr,char *end,char target);
 void	concatenate_remaining_strings(char *str, char *stre, char **new, char *join);
 void    skip_character(char **ptr,char *end,char targer);
 char *h_quotes(char **str,char symbol,t_copy *env);
@@ -101,5 +102,8 @@ t_copy	*env(t_copy *list, char **envt);
 
 
 /*expand*/
-char* func_expand(char *str);
+char* func_double_qoutes_expand(char *str);
+char* find_end_of_var(char *str);
+char *func_quotes_expand(char *str);
+
 #endif

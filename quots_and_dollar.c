@@ -20,22 +20,44 @@ char *h_quotes(char **str,char symbol,t_copy *env)
     return NULL;
 }
 
-char *h_dollar(char **str, t_copy *env)
+char* h_dollar(char** str, t_copy* env)
 {
     (void)env;
 
-    char *start = *str + 1;
-    char *end = strchr(start,' ');
+    char* start = *str + 1;
 
-    if(end != NULL)
+    // Vérifie si le nom de la variable est encadré par des guillemets doubles
+    if (*start == '\"')
     {
-        size_t lenght = end - start ;
-        char *extracted = malloc(sizeof(char)  * (lenght + 1));
-        strncpy(extracted,start,lenght);
-        extracted[lenght] = '\0';
-        *str = end + 1;
-        return extracted ;
+        start++;  // Ignorer le guillemet ouvrant
+        char* end = strchr(start, '\"');  // Rechercher le guillemet fermant
+
+        if (end != NULL)
+        {
+            size_t length = end - start;
+            char* extracted = malloc(sizeof(char) * (length + 1));
+            strncpy(extracted, start, length);
+            extracted[length] = '\0';
+            *str = end + 1;
+            return extracted;
+        }
     }
+    else
+    {
+        // Sinon, utilisez la logique précédente pour rechercher le premier espace
+        char* end = strchr(start, ' ');
+
+        if (end != NULL)
+        {
+            size_t length = end - start;
+            char* extracted = malloc(sizeof(char) * (length + 1));
+            strncpy(extracted, start, length);
+            extracted[length] = '\0';
+            *str = end + 1;
+            return extracted;
+        }
+    }
+
     return NULL;
 }
 
